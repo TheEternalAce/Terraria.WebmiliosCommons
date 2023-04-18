@@ -1,5 +1,4 @@
-﻿using MonoMod.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,7 +11,7 @@ public class DamageClassProxy
 {
     internal static string GetDamageName(DamageClass damage)
     {
-        return damage.ClassName?.Key ?? damage.Name;
+        return damage.Name;
     }
 
     public class Loader : ModSystem
@@ -34,7 +33,7 @@ public class DamageClassProxy
         {
             _damageClasses = typeof(DamageClassLoader).GetField("DamageClasses", BindingFlags.Static | BindingFlags.NonPublic).GetValue(null) as List<DamageClass>;
 
-            foreach (var property in typeof(DamageClass).GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            foreach (var property in typeof(DamageClass).GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
                 if (property.PropertyType.IsSubclassOf(typeof(DamageClass)))
                 {
